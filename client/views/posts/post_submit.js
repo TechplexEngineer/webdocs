@@ -2,15 +2,21 @@ Template.postSubmit.events({
 	'submit form': function(e) {
 		e.preventDefault();
 
-		var post = {
+		var postdata = {
 			title: $(e.target).find('[name=title]').val(),
-			author: this.userId,
 			brief: $(e.target).find('[name=brief]').val(),
 			body: $(e.target).find('[name=body]').val()
 		}
 
-		post._id = Posts.insert(post);
-		Router.go('postPage', post);
+		Meteor.call('post', postdata, function(error, id) {
+			if (error) {
+				return alert(error.reason); //@todo it would be nice to show these using bootstrap alerts
+			}
+			//the books shows the router here
+		})
+
+		//post._id = Posts.insert(postdata);
+		Router.go('postPage', postdata);
 	}
 });
 
