@@ -12,11 +12,9 @@ Template.postSubmit.events({
 			if (error) {
 				return alert(error.reason); //@todo it would be nice to show these using bootstrap alerts
 			}
-			//the books shows the router here
+			//router must be here so we only change page if there was no error
+			Router.go('postPage', {_id: id});
 		})
-
-		//post._id = Posts.insert(postdata);
-		Router.go('postPage', postdata);
 	}
 });
 
